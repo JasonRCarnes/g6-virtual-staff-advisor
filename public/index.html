@@ -1,1 +1,361 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CIO/G6 Virtual Staff Advisor for advisory IT, communications, cybersecurity, data governance, modernization, and staff decision support.">
+  <meta name="theme-color" content="#0f172a">
+  <title>CIO/G6 | Virtual Staff Advisor</title>
+
+  <!-- Prototype styling. For a production deployment, pin and host approved assets. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #0b1220;
+      --panel: #172033;
+      --line: #334155;
+      --accent: #60a5fa;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; background: var(--page); }
+    button, input, select, textarea { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible,
+    select:focus-visible, textarea:focus-visible {
+      outline: 2px solid #93c5fd;
+      outline-offset: 3px;
+    }
+
+    .classification-banner {
+      background: #166534;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-align: center;
+      padding: 5px 12px;
+    }
+
+    .panel {
+      background: rgba(23, 32, 51, .94);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .field {
+      width: 100%;
+      color: #f1f5f9;
+      background: #0b1220;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .field::placeholder { color: #94a3b8; }
+    .field:focus { border-color: #60a5fa; outline: 2px solid #1d4ed8; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 13px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid #475569;
+      background: #1e293b;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .btn:hover { background: #334155; }
+    .btn-primary { background: #1d4ed8; border-color: #3b82f6; color: white; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-danger { border-color: #991b1b; color: #fecaca; }
+    .muted { color: #94a3b8; }
+    .eyebrow { font-size: 11px; letter-spacing: .1em; font-weight: 800; text-transform: uppercase; }
+    .nav-link {
+      padding: 8px 10px;
+      border-radius: 7px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+    .nav-link:hover, .nav-link[aria-current="page"] {
+      background: #334155;
+      color: white;
+    }
+    .result-card {
+      border: 1px solid #334155;
+      background: #0f172a;
+      border-radius: 9px;
+      padding: 13px;
+    }
+    .answer-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.7;
+    }
+    .tag {
+      display: inline-block;
+      border: 1px solid #475569;
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 11px;
+      color: #cbd5e1;
+    }
+    .hidden { display: none !important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="text-slate-100 antialiased">
+  <div class="classification-banner">
+    UNCLASSIFIED PROTOTYPE — VERIFY MARKINGS AND HANDLING WITH THE RESPONSIBLE AUTHORITY
+  </div>
+
+  <aside class="border-b border-amber-800 bg-amber-950 px-4 py-2 text-xs text-amber-200">
+    <strong>NOTICE:</strong>
+    Demonstration interface for advisory staff support. Not an official command system.
+    Do not enter classified, CUI, personal, mission-sensitive, credential, or other
+    restricted information unless the specific environment and use have been authorized.
+  </aside>
+
+  <header class="border-b border-slate-700 bg-slate-900">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+      <div class="flex items-center gap-3">
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg border border-blue-400 bg-blue-950 text-lg font-extrabold">
+          G6
+        </div>
+        <div>
+          <h1 class="text-lg font-extrabold tracking-wide">CIO/G6 VIRTUAL STAFF ADVISOR</h1>
+          <p class="text-xs text-slate-400">Decision support • Digital modernization • Governance</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <span id="connection-status" class="tag">Local guidance mode</span>
+        <span class="tag">Advisory only</span>
+      </div>
+    </div>
+
+    <nav aria-label="Main navigation" class="mx-auto flex max-w-7xl flex-wrap gap-1 px-4 pb-3">
+      <a class="nav-link" href="#advisor" aria-current="page">Advisor</a>
+      <a class="nav-link" href="#workflows">Workflows</a>
+      <a class="nav-link" href="#knowledge">Knowledge</a>
+      <a class="nav-link" href="#history">History</a>
+      <a class="nav-link" href="#admin">Configuration</a>
+      <a class="nav-link" href="#concept">Agent charter</a>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-7xl space-y-6 px-4 py-6">
+
+    <!-- ADVISOR -->
+    <section id="advisor" class="panel overflow-hidden">
+      <div class="border-b border-slate-700 bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 p-5 sm:p-7">
+        <p class="eyebrow text-blue-300">Decision-support workspace</p>
+        <h2 class="mt-2 text-2xl font-extrabold sm:text-3xl">
+          Turn staff questions into actionable recommendations.
+        </h2>
+        <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-300">
+          Describe an IT requirement, modernization proposal, governance issue, or
+          service-delivery problem. The advisor routes the request, identifies
+          information gaps, and helps prepare a staff product for human review.
+        </p>
+        <p class="mt-3 text-xs text-amber-200">
+          Recommendations are not approvals, policy determinations, or command direction.
+        </p>
+      </div>
+
+      <div class="grid gap-6 p-4 sm:p-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,.65fr)]">
+        <div class="space-y-4">
+          <div>
+            <label for="request-type" class="mb-2 block text-sm font-bold">What do you need?</label>
+            <select id="request-type" class="field">
+              <option value="triage">IT requirement intake and routing</option>
+              <option value="decision">Decision paper / executive summary</option>
+              <option value="architecture">Architecture and modernization review</option>
+              <option value="cyber">Cybersecurity risk discussion support</option>
+              <option value="governance">Governance board preparation</option>
+              <option value="risk">Risk register / courses of action</option>
+              <option value="general">General CIO/G6 staff question</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="request-title" class="mb-2 block text-sm font-bold">Issue or proposal title</label>
+            <input id="request-title" class="field" maxlength="180"
+              placeholder="e.g., Enterprise collaboration capability assessment">
+          </div>
+
+          <div>
+            <label for="ai-query-input" class="mb-2 block text-sm font-bold">
+              Describe the issue or requirement
+            </label>
+            <textarea id="ai-query-input" class="field" rows="6" maxlength="12000"
+              placeholder="State the problem, desired outcome, known constraints, deadline, and any approved references. Use only information authorized for this environment."></textarea>
+            <div class="mt-1 flex justify-between gap-2 text-xs muted">
+              <span>Include only the minimum necessary information.</span>
+              <span id="character-count">0 / 12000</span>
+            </div>
+          </div>
+
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label for="mission-impact" class="mb-2 block text-sm font-bold">Mission impact</label>
+              <select id="mission-impact" class="field">
+                <option value="unknown">Not yet assessed</option>
+                <option value="low">Low — convenience or efficiency</option>
+                <option value="medium">Medium — staff or service impact</option>
+                <option value="high">High — significant mission dependency</option>
+                <option value="critical">Potentially critical — human escalation required</option>
+              </select>
+            </div>
+            <div>
+              <label for="deadline" class="mb-2 block text-sm font-bold">Decision deadline</label>
+              <input id="deadline" class="field" type="date">
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button id="analyze-btn" class="btn btn-primary" type="button">
+              Analyze request
+            </button>
+            <button id="clear-btn" class="btn" type="button">Clear form</button>
+          </div>
+          <p id="form-status" class="text-xs muted" role="status" aria-live="polite"></p>
+
+          <div class="border-t border-slate-700 pt-4">
+            <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">Quick starts</p>
+            <div class="flex flex-wrap gap-2">
+              <button class="btn quick-start" data-type="triage"
+                data-prompt="Assess and route a proposed IT requirement. Identify missing intake information, stakeholders, dependencies, and the recommended next action.">
+                IT requirement
+              </button>
+              <button class="btn quick-start" data-type="decision"
+                data-prompt="Prepare a decision-paper draft with a BLUF, decision requested, facts, assumptions, analysis, courses of action, risks, recommendation, coordination, and next actions.">
+                Decision paper
+              </button>
+              <button class="btn quick-start" data-type="architecture"
+                data-prompt="Conduct an initial architecture and interoperability review. Identify relevant approved standards that must be supplied, integration dependencies, cyber review requirements, and open questions.">
+                Architecture review
+              </button>
+              <button class="btn quick-start" data-type="cyber"
+                data-prompt="Summarize the stated cybersecurity concern, potential impacts, information gaps, mitigation options, and required security-authority review. Do not make an authorization or risk-acceptance decision.">
+                Cyber risk
+              </button>
+              <button class="btn quick-start" data-type="governance"
+                data-prompt="Prepare a governance-board read-ahead with issue summary, decision required, options, stakeholder coordination, principal questions, and an action tracker.">
+                Board read-ahead
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESPONSE -->
+        <aside class="space-y-4">
+          <div class="rounded-lg border border-blue-900 bg-blue-950/40 p-4">
+            <h3 class="font-bold text-blue-200">How the advisor works</h3>
+            <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm leading-5 text-slate-300">
+              <li>Classifies the request using local routing rules.</li>
+              <li>Identifies missing information and review needs.</li>
+              <li>Uses the approved backend, if configured, for AI-assisted analysis.</li>
+              <li>Formats results for staff review and disposition.</li>
+            </ol>
+          </div>
+
+          <div class="rounded-lg border border-slate-700 bg-slate-950/50 p-4">
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="font-bold">Current request route</h3>
+              <span id="route-label" class="tag">Not analyzed</span>
+            </div>
+            <p id="route-description" class="mt-2 text-sm leading-6 text-slate-400">
+              Your functional area and recommended routing will appear here.
+            </p>
+            <div id="missing-info" class="mt-3 space-y-2"></div>
+          </div>
+
+          <div class="rounded-lg border border-amber-900 bg-amber-950/30 p-4">
+            <h3 class="font-bold text-amber-200">Human review required</h3>
+            <p class="mt-2 text-sm leading-6 text-slate-300">
+              Security, legal, privacy, fiscal, contracting, operational-risk, architecture,
+              and command decisions remain with their designated authorities.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results" class="panel hidden" aria-labelledby="results-title">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-700 p-4 sm:p-5">
+        <div>
+          <p class="eyebrow text-blue-300">Staff analysis</p>
+          <h2 id="results-title" class="mt-1 text-xl font-bold">Advisor output</h2>
+          <p id="result-meta" class="mt-1 text-xs muted"></p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button id="copy-btn" class="btn" type="button">Copy draft</button>
+          <button id="download-btn" class="btn" type="button">Download .txt</button>
+        </div>
+      </div>
+
+      <div id="answer" class="answer-text p-4 text-sm sm:p-6" aria-live="polite"></div>
+
+      <div class="border-t border-slate-700 p-4">
+        <p class="mb-2 text-xs font-bold uppercase tracking-wider text-slate-400">
+          Source references returned by the backend
+        </p>
+        <div id="answer-sources" class="space-y-2 text-sm"></div>
+        <p class="mt-3 text-xs text-amber-200">
+          Verify source currency, applicability, and authority before relying on this draft.
+        </p>
+      </div>
+    </section>
+
+    <!-- WORKFLOWS -->
+    <section id="workflows" class="space-y-3">
+      <div>
+        <p class="eyebrow text-blue-300">Self-service</p>
+        <h2 class="text-xl font-bold">Functional workflows</h2>
+        <p class="mt-1 text-sm muted">Choose a workflow to prefill the request form.</p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <article class="panel p-4">
+          <div class="text-2xl">🧭</div>
+          <h3 class="mt-2 font-bold">Requirements intake</h3>
+          <p class="mt-2 text-sm leading-6 muted">Categorize needs, find information gaps, and recommend routing.</p>
+          <button class="btn mt-4 workflow-btn" data-type="triage"
+            data-prompt="Triage this IT requirement. Identify its functional area, missing information, stakeholders, dependencies, and next actions.">
+            Start intake
+          </button>
+        </article>
+
+        <article class="panel p-4">
+          <div class="text-2xl">📄</div>
+          <h3 class="mt-2 font-bold">Decision support</h3>
+          <p class="mt-2 text-sm leading-6 muted">Draft BLUFs, decision papers, COAs, risk summaries, and recommendations.</p>
+          <button class="btn mt-4 workflow-btn" data-type="decision"
+            data-prompt="Draft a staff decision paper using the standard advisor output format. Clearly label facts, assumptions, uncertainties, and approval requirements.">
+            Draft staff product
+          </button>
+        </article>
+
+        <article class="panel p-4">
+          <div class="text-2xl">🏗️</div>
+          <h3 class="mt-2 font-bold">Architecture and modernization</h3>
+          <p class="mt-2 text-sm leading-6 muted">Review supplied standards, integration dependencies, lifecycle, and interoperability.</p>
+          <button class="btn mt-4 workflow-btn" data-type="architecture"
+            data
