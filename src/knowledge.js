@@ -56,4 +56,3 @@ function getKnowledgeStatus() {
 }
 
 module.exports = { getKnowledgeStatus };
-
